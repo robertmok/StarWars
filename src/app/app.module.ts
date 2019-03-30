@@ -8,7 +8,8 @@ import { MaterialModule } from './material-module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LandingComponent } from './landing/landing.component';
+import { LandingComponent } from './modules/landing/landing.component';
+import { SwapiService } from './core/services/swapi.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,9 @@ import { LandingComponent } from './landing/landing.component';
     MatNativeDateModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    SwapiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
