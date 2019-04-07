@@ -16,14 +16,12 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { HeaderModule } from './core/header/header.module';
 import { FooterComponent } from './core/footer/footer.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { PeopleComponent } from './modules/people/people.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    FooterComponent,
-    PeopleComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +39,8 @@ import { PeopleComponent } from './modules/people/people.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    HeaderModule
+    HeaderModule,
+    RouterModule
   ],
   providers: [
     SwapiService,
