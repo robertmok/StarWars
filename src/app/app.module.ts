@@ -13,16 +13,17 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { SwapiService } from './core/services/swapi.service';
 import { AuthGuard } from './core/guards/auth.guard';
-import { HeaderComponent } from './core/header/header.component';
+import { HeaderModule } from './core/header/header.module';
 import { FooterComponent } from './core/footer/footer.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { PeopleComponent } from './modules/people/people.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
-    HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PeopleComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    HeaderModule
   ],
   providers: [
     SwapiService,
