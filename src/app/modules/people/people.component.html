@@ -1,3 +1,8 @@
 <p>
   people works!
 </p>
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+  <div *cdkVirtualFor="let item of ds" class="example-item">
+    <p>Name: {{ item.name || 'Loading...'}}</p>
+  </div>
+</cdk-virtual-scroll-viewport>
