@@ -1,8 +1,9 @@
 <p>
   people works!
 </p>
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-  <div *cdkVirtualFor="let item of ds" class="example-item">
-    <p>Name: {{ item.name || 'Loading...'}}</p>
+
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
+  <div *cdkVirtualFor="let p of people; let i = index; trackBy: trackByIdx" class="example-item">
+    <h2>{{ i }}. {{  p.name || 'Loading...' }}</h2>
   </div>
 </cdk-virtual-scroll-viewport>
