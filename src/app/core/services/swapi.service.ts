@@ -19,11 +19,20 @@ export class SwapiService {
 
   getPeople(url: string): Observable<any> {
     return this.httpC.get<any>(url)
-        .pipe(
-            // retry(3) // retry a failed request up to 3 times
-            catchError(this.handleError('getPeople', []))
+      .pipe(
+          // retry(3) // retry a failed request up to 3 times
+          catchError(this.handleError('getPeople', []))
     );
   }
+
+  getPerson(url: string): Observable<any> {
+    return this.httpC.get<any>(url)
+      .pipe(
+          // retry(3) // retry a failed request up to 3 times
+          catchError(this.handleError('getPerson', []))
+    );
+  }
+
 
   // submit(object: string): Observable<string> {
   //   return this.httpC.post<string>('',
