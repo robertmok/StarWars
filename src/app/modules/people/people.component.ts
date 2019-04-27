@@ -29,7 +29,9 @@ export class PeopleComponent implements OnInit {
     "eye_color": "",
     "birth_year": "",
     "gender": "",
-    "homeworld": "",
+    "homeworld": {
+      "name": ""
+    },
     "films": [],
     "species": [],
     "vehicles": [],
@@ -63,9 +65,9 @@ export class PeopleComponent implements OnInit {
     console.log('Get details of: ' + url);
     this.swapiService.getPerson(url)
     .subscribe((response) => {
-      // console.log(response);
+      console.log(response);
       this.person = response;
-      console.log(this.person);
+      // console.log(this.person);
       this.cdRef.detectChanges();
     });
   }

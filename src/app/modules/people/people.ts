@@ -7,7 +7,7 @@ export class People {
   eye_color: string;
   birth_year: string;
   gender: string;
-  homeworld: string;
+  homeworld: any;
   films: string[];
   species: string[];
   vehicles: string[];

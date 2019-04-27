@@ -24,16 +24,21 @@
       {{ person.birth_year }}
     </p>
     <p>
-      <span class="bold">Species: </span>
-      {{ person.species }}
-     </p>
+      <span class="bold">Species Belonged To: </span>
+      <span *ngIf="person.species.length === 0">None</span> 
+    </p>
+    <div>
+      <ul *ngFor="let specie of person.species">
+        <li> {{ specie.name }}</li>
+      </ul>
+    </div>
     <p>
       <span class="bold">Gender: </span>
       {{ person.gender }} 
     </p>
     <p>
       <span class="bold">Home World: </span>
-      {{ person.homeworld }} 
+      {{ person.homeworld.name }}
     </p>
     <p>
       <span class="bold">Height: </span>
@@ -55,22 +60,31 @@
       <span class="bold">Skin Color: </span>
       {{ person.skin_color }} 
     </p>
-    <p class="bold">Starships Piloted: </p>
+    <p>
+      <span class="bold">Starships Piloted: </span>
+      <span *ngIf="person.starships.length === 0">None</span> 
+    </p>
     <div>
       <ul *ngFor="let ship of person.starships">
-        <li> {{ ship }}</li>
+        <li> {{ ship.name }}</li>
       </ul>
     </div>
-    <p class="bold">Vehicles Driven: </p>
+    <p>
+      <span class="bold">Vehicles Driven: </span>
+      <span *ngIf="person.vehicles.length === 0">None</span>
+    </p>
     <div>
       <ul *ngFor="let vehicle of person.vehicles">
-        <li> {{ vehicle }}</li>
+        <li> {{ vehicle.name }}</li>
       </ul>
     </div>
-    <p class="bold">Films Starred In: </p>
+    <p>
+      <span class="bold">Films Starred In: </span>
+      <span *ngIf="person.films.length === 0">None</span>
+    </p>
     <div>
       <ul *ngFor="let film of person.films">
-        <li> {{ film }}</li>
+        <li> {{ film.title }}</li>
       </ul>
     </div>
   </mat-card-content>
