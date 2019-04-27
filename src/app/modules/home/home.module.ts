@@ -7,13 +7,16 @@ import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../../core/header/header.module';
 import { InfoComponent } from '../info/info.component';
 import { MaterialModule } from '../../shared/material-module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     routing,
     HeaderModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     HomeComponent,

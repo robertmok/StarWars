@@ -1,7 +1,8 @@
-<p>
-  people works!
-</p>
-
+<form class="example-form" [formGroup]="searchForm">
+  <mat-form-field class="example-full-width">
+      <input matInput formControlName="search" placeholder="Search a Person ...">
+  </mat-form-field>
+</form>
 <div style="float: left;">
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
     <div *cdkVirtualFor="let p of people; let i = index; trackBy: trackByIdx" class="example-item">
