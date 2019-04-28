@@ -3,6 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { PeopleComponent } from '../people/people.component';
 import { InfoComponent } from '../info/info.component';
+import { SpeciesComponent } from '../species/species.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: 'people',
         component: PeopleComponent
+      },
+      {
+        path: 'species',
+        component: SpeciesComponent
       },
       {
         path: '',

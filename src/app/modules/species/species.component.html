@@ -1,0 +1,80 @@
+<div id="maincontent">
+  <form class="example-form" [formGroup]="searchForm">
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="search" placeholder="Search a Specie ...">
+    </mat-form-field>
+  </form>
+  <div style="float: left;">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
+      <div *cdkVirtualFor="let s of species; let i = index; trackBy: trackByIdx" class="example-item">
+        <h3>
+          {{ i + 1 }}. 
+          <button mat-button  color="primary" (click)="getDetails(s.url)">
+            <span style="font-size: 1.17em;" class="bold"> {{  s.name || 'Loading...' }} </span>
+          </button>
+        </h3>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <mat-card style="float: left; width: 875px; height: 580px;">
+    <mat-card-header>
+      <mat-card-title>{{ specie.name }} Specie</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="height: 560px; overflow: auto;">
+      <p>
+        <span class="bold">Classification: </span> 
+        {{ specie.classification }}
+      </p>
+      <p>
+        <span class="bold">Designation: </span> 
+        {{ specie.designation }}
+      </p>
+      <p>
+        <span class="bold">Average Height: </span> 
+        {{ specie.average_height }} cm
+      </p>
+      <p>
+        <span class="bold">Average Lifespan: </span> 
+        {{ specie.average_lifespan }} years
+      </p>
+      <p>
+        <span class="bold">Eye Colors: </span> 
+        {{ specie.eye_colors }}
+      </p>
+      <p>
+        <span class="bold">Hair Colors: </span> 
+        {{ specie.hair_colors }}
+      </p>
+      <p>
+        <span class="bold">Skin Colors: </span> 
+        {{ specie.skin_colors }}
+      </p>
+      <p>
+        <span class="bold">Common Language: </span> 
+        {{ specie.language }}
+      </p>
+      <p>
+        <span class="bold">Home World Origin: </span> 
+        {{ specie.homeworld.name }}
+      </p>
+      <p>
+        <span class="bold">People of this Specie: </span>
+        <span *ngIf="specie.people.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let person of specie.people">
+          <li> {{ person.name }}</li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Films Appeared In: </span>
+        <span *ngIf="specie.films.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let film of specie.films">
+          <li> {{ film.title }}</li>
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -29,12 +29,20 @@ export class SwapiService {
   getPerson(url: string): Observable<any> {
     return this.httpC.get<any>(url).pipe(
       mergeMap((character: any) => {
-        return this.httpC.get(character.homeworld).pipe(
-          map((data: any) => {
-            character.homeworld = data;
-            return character;
-          })
-        );
+        if (character.homeworld !== null) {
+          return this.httpC.get(character.homeworld).pipe(
+            map((data: any) => {
+              character.homeworld = data;
+              return character;
+            })
+          );
+        } else {
+          character.homeworld = {
+            "name": "none",
+            "url": ""
+          };
+          return of(character);
+        }
       }),
       mergeMap((character: any) => {
         if (character.films.length > 0) {
@@ -51,8 +59,6 @@ export class SwapiService {
             })
           );
         } else {
-          // character.films = of([]);
-          // console.log('1');
           return of(character);
         }
       }),
@@ -71,8 +77,6 @@ export class SwapiService {
             })
           );
         } else {
-          // character.species = [];
-          // console.log('2');
           return of(character);
         }
       }),
@@ -91,9 +95,6 @@ export class SwapiService {
             })
           );
         } else {
-          // character.starships = [];
-          // console.log('3');
-          // console.log(character);
           return of(character);
         }
       }),
@@ -112,24 +113,94 @@ export class SwapiService {
             })
           );
         } else {
-          // character.vehicles = [];
-          // console.log('4');
           return of(character);
         }
       })
-      // retry(3) // retry a failed request up to 3 times
-      // catchError(this.handleError('getPerson', []))
     );
   }
 
   searchPerson(query: string): Observable<any> {
     return this.httpC.get<any>('https://swapi.co/api/people/?search=' + query)
       .pipe(
-        // retry(3) // retry a failed request up to 3 times
         catchError(this.handleError('searchPerson', [])
       )
     );
   }
+
+  getSpecies(url: string): Observable<any> {
+    return this.httpC.get<any>(url)
+      .pipe(
+        catchError(this.handleError('getSpecies', [])
+      )
+    );
+  }
+
+  getSpecie(url: string): Observable<any> {
+    return this.httpC.get<any>(url).pipe(
+      mergeMap((specie: any) => {
+        if (specie.homeworld !== null) {
+          return this.httpC.get(specie.homeworld).pipe(
+            map((data: any) => {
+              specie.homeworld = data;
+              return specie;
+            })
+          );
+        } else {
+          specie.homeworld = {
+            "name": "none",
+            "url": ""
+          };
+          return of(specie);
+        }
+      }),
+      mergeMap((specie: any) => {
+        if (specie.people.length > 0) {
+          return forkJoin(
+            specie.people.map((person: any) => {
+              return this.httpC.get(person).pipe(
+                map(res => res)
+              );
+            })
+          ).pipe(
+            map((data: any[]) => {
+              specie.people = data;
+              return specie;
+            })
+          );
+        } else {
+          return of(specie);
+        }
+      }),
+      mergeMap((specie: any) => {
+        if (specie.films.length > 0) {
+          return forkJoin(
+            specie.films.map((film: any) => {
+              return this.httpC.get(film).pipe(
+                map(res => res)
+              );
+            })
+          ).pipe(
+            map((data: any[]) => {
+              specie.films = data;
+              return specie;
+            })
+          );
+        } else {
+          return of(specie);
+        }
+      })
+    );
+  }
+
+  searchSpecie(query: string): Observable<any> {
+    return this.httpC.get<any>('https://swapi.co/api/species/?search=' + query)
+      .pipe(
+        catchError(this.handleError('searchSpecie', [])
+      )
+    );
+  }
+
+
 
   // submit(object: string): Observable<string> {
   //   return this.httpC.post<string>('',

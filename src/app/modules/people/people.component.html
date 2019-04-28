@@ -1,92 +1,94 @@
-<form class="example-form" [formGroup]="searchForm">
-  <mat-form-field class="example-full-width">
-      <input matInput formControlName="search" placeholder="Search a Person ...">
-  </mat-form-field>
-</form>
-<div style="float: left;">
-  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
-    <div *cdkVirtualFor="let p of people; let i = index; trackBy: trackByIdx" class="example-item">
-      <h3>
-        {{ i + 1 }}. 
-        <button mat-button  color="primary" (click)="getDetails(p.url)">
-          <span style="font-size: 1.17em;" class="bold"> {{  p.name || 'Loading...' }} </span>
-        </button>
-      </h3>
-    </div>
-  </cdk-virtual-scroll-viewport>
+<div id="maincontent">
+  <form class="example-form" [formGroup]="searchForm">
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="search" placeholder="Search a Person ...">
+    </mat-form-field>
+  </form>
+  <div style="float: left;">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
+      <div *cdkVirtualFor="let p of people; let i = index; trackBy: trackByIdx" class="example-item">
+        <h3>
+          {{ i + 1 }}. 
+          <button mat-button  color="primary" (click)="getDetails(p.url)">
+            <span style="font-size: 1.17em;" class="bold"> {{  p.name || 'Loading...' }} </span>
+          </button>
+        </h3>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <mat-card style="float: left; width: 875px; height: 580px;">
+    <mat-card-header>
+      <mat-card-title>{{ person.name }} Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="height: 560px; overflow: auto;">
+      <p>
+        <span class="bold">Birth Year (BBY = Before the Battle of Yavin, ABY = After the Battle of Yavin):</span> 
+        {{ person.birth_year }}
+      </p>
+      <p>
+        <span class="bold">Species Belonged To: </span>
+        <span *ngIf="person.species.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let specie of person.species">
+          <li> {{ specie.name }}</li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Gender: </span>
+        {{ person.gender }} 
+      </p>
+      <p>
+        <span class="bold">Home World: </span>
+        {{ person.homeworld.name }}
+      </p>
+      <p>
+        <span class="bold">Height: </span>
+        {{ person.height }}cm 
+      </p>
+      <p>
+        <span class="bold">Weight: </span>
+        {{ person.mass }}kg 
+      </p>
+      <p>
+        <span class="bold">Eye Color: </span>
+        {{ person.eye_color }} 
+      </p>
+      <p>
+        <span class="bold"> Hair Color: </span>
+        {{ person.hair_color }} 
+      </p>
+      <p>
+        <span class="bold">Skin Color: </span>
+        {{ person.skin_color }} 
+      </p>
+      <p>
+        <span class="bold">Starships Piloted: </span>
+        <span *ngIf="person.starships.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let ship of person.starships">
+          <li> {{ ship.name }}</li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Vehicles Driven: </span>
+        <span *ngIf="person.vehicles.length === 0">None</span>
+      </p>
+      <div>
+        <ul *ngFor="let vehicle of person.vehicles">
+          <li> {{ vehicle.name }}</li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Films Starred In: </span>
+        <span *ngIf="person.films.length === 0">None</span>
+      </p>
+      <div>
+        <ul *ngFor="let film of person.films">
+          <li> {{ film.title }}</li>
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
-<mat-card style="float: left; width: 880px; height: 589px;">
-  <mat-card-header>
-    <mat-card-title>{{ person.name }} Details</mat-card-title>
-  </mat-card-header>
-  <mat-card-content style="height: 560px; overflow: auto;">
-    <p>
-      <span class="bold">Birth Year (BBY = Before the Battle of Yavin, ABY = After the Battle of Yavin):</span> 
-      {{ person.birth_year }}
-    </p>
-    <p>
-      <span class="bold">Species Belonged To: </span>
-      <span *ngIf="person.species.length === 0">None</span> 
-    </p>
-    <div>
-      <ul *ngFor="let specie of person.species">
-        <li> {{ specie.name }}</li>
-      </ul>
-    </div>
-    <p>
-      <span class="bold">Gender: </span>
-      {{ person.gender }} 
-    </p>
-    <p>
-      <span class="bold">Home World: </span>
-      {{ person.homeworld.name }}
-    </p>
-    <p>
-      <span class="bold">Height: </span>
-      {{ person.height }}cm 
-    </p>
-    <p>
-      <span class="bold">Weight: </span>
-      {{ person.mass }}kg 
-    </p>
-    <p>
-      <span class="bold">Eye Color: </span>
-      {{ person.eye_color }} 
-    </p>
-    <p>
-      <span class="bold"> Hair Color: </span>
-      {{ person.hair_color }} 
-    </p>
-    <p>
-      <span class="bold">Skin Color: </span>
-      {{ person.skin_color }} 
-    </p>
-    <p>
-      <span class="bold">Starships Piloted: </span>
-      <span *ngIf="person.starships.length === 0">None</span> 
-    </p>
-    <div>
-      <ul *ngFor="let ship of person.starships">
-        <li> {{ ship.name }}</li>
-      </ul>
-    </div>
-    <p>
-      <span class="bold">Vehicles Driven: </span>
-      <span *ngIf="person.vehicles.length === 0">None</span>
-    </p>
-    <div>
-      <ul *ngFor="let vehicle of person.vehicles">
-        <li> {{ vehicle.name }}</li>
-      </ul>
-    </div>
-    <p>
-      <span class="bold">Films Starred In: </span>
-      <span *ngIf="person.films.length === 0">None</span>
-    </p>
-    <div>
-      <ul *ngFor="let film of person.films">
-        <li> {{ film.title }}</li>
-      </ul>
-    </div>
-  </mat-card-content>
-</mat-card>
