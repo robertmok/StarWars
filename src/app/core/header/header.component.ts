@@ -16,9 +16,13 @@ export class HeaderComponent implements OnInit {
       map(result => result.matches)
     );
 
+  visitor = '';
+
   constructor(private router: Router, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
+    console.log(sessionStorage.getItem('username'));
+    this.visitor = sessionStorage.getItem('username');
   }
 
 }

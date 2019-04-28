@@ -23,3 +23,12 @@
 [hidden] {
   display: none !important;
 }
+
+.mat-nav-list a.active {
+  background: #673ab7;
+  color: white;
+}
+
+.example-icon {
+  padding: 0 5px;
+}

@@ -7,12 +7,30 @@
       <img src="https://cdn.iconscout.com/icon/free/png-256/starwars-225970.png" style="width: 100px;" alt="Star Wars">
     </mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink='people'>People</a>
-      <a mat-list-item routerLink='species'>Species</a>
-      <a mat-list-item href="#">Planets</a>
-      <a mat-list-item href="#">Starships</a>
-      <a mat-list-item href="#">Vehicles</a>
-      <a mat-list-item href="#">Films</a>
+      <a mat-list-item routerLink='people' routerLinkActive="active">
+        <mat-icon class="example-icon">people</mat-icon>
+        People
+      </a>
+      <a mat-list-item routerLink='species' routerLinkActive="active">
+        <mat-icon class="example-icon">pets</mat-icon>
+        Species
+      </a>
+      <a mat-list-item href="#" routerLinkActive="active">
+        <mat-icon class="example-icon">public</mat-icon>
+        Planets
+      </a>
+      <a mat-list-item href="#" routerLinkActive="active">
+        <mat-icon class="example-icon">airplanemode_active</mat-icon>
+        Starships
+      </a>
+      <a mat-list-item href="#" routerLinkActive="active">
+        <mat-icon class="example-icon">commute</mat-icon>
+        Vehicles
+      </a>
+      <a mat-list-item href="#" routerLinkActive="active">
+        <mat-icon class="example-icon">movie_filter</mat-icon>
+        Films
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -25,7 +43,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Star Wars</span>
+      <span>Welcome {{ visitor }}!</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content></ng-content>

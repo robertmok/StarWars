@@ -19,11 +19,15 @@ export class LandingComponent implements OnInit {
   }
 
   proceed() {
-    if (typeof(Storage) !== 'undefined') {
-      sessionStorage.setItem('username', this.landingFormGroup.get('name').value);
-      this.router.navigate(['/home']);
+    if (this.landingFormGroup.valid) {
+      if (typeof(Storage) !== 'undefined') {
+        sessionStorage.setItem('username', this.landingFormGroup.get('name').value);
+        this.router.navigate(['/home']);
+      } else {
+          alert ('Sorry, your browser does not support Web Storage ...');
+      }
     } else {
-        alert ('Sorry, your browser does not support Web Storage ...');
+      console.log('Invalid form');
     }
   }
 }
