@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
 import { SwapiService } from '../../core/services/swapi.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-species',
   templateUrl: './species.component.html',
   styleUrls: ['./species.component.css']
 })
-export class SpeciesComponent implements OnInit {
+export class SpeciesComponent implements OnInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
@@ -40,19 +41,23 @@ export class SpeciesComponent implements OnInit {
   };
   nextPage = 'https://swapi.co/api/species';
   loading = false;
+  detailsLoading = false;
 
   search: FormControl;
   searchForm: FormGroup;
   constructor(private route: ActivatedRoute, private swapiService: SwapiService, private cdRef: ChangeDetectorRef,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params.id;
       if (id != null) {
-          // Load the right article
-          console.log(id);
+        // Load the right article
+        console.log('Detected Specie ID: ' + id);
+        this.getDetails('https://swapi.co/api/species/' + id + '/');
+      } else {
+        console.log('No route param');
       }
     });
 
@@ -87,13 +92,17 @@ export class SpeciesComponent implements OnInit {
         }
         this.species = response.results;
         console.log(this.species);
-        this.cdRef.detectChanges();
+        if (!this.cdRef['destroyed']) {
+          this.cdRef.detectChanges();
+        }
         this.loading = false;
       } else {
         this.species = [];
         this.nextPage = 'https://swapi.co/api/species';
         this.theEnd = false;
-        this.cdRef.detectChanges();
+        if (!this.cdRef['destroyed']) {
+          this.cdRef.detectChanges();
+        }
         this.getBatch();
       }
     });
@@ -101,11 +110,15 @@ export class SpeciesComponent implements OnInit {
 
   getDetails(url) {
     console.log('Get details of: ' + url);
+    this.detailsLoading = true;
     this.swapiService.getSpecie(url)
     .subscribe((response) => {
       console.log(response);
       this.specie = response;
-      this.cdRef.detectChanges();
+      this.detailsLoading = false;
+      if (!this.cdRef['destroyed']) {
+        this.cdRef.detectChanges();
+      }
     });
   }
 
@@ -123,7 +136,9 @@ export class SpeciesComponent implements OnInit {
         }
         this.species = [...this.species, ...response.results];
         console.log(this.species);
-        this.cdRef.detectChanges();
+        if (!this.cdRef['destroyed']) {
+          this.cdRef.detectChanges();
+        }
         this.loading = false;
     });
   }
@@ -145,5 +160,20 @@ export class SpeciesComponent implements OnInit {
 
   trackByIdx(i) {
     return i;
+  }
+
+  personInfo(url) {
+    console.log('Lookup Person Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/people', url.split('/')[5]]);
+    }
+  }
+
+
+
+
+  ngOnDestroy() {
+    this.cdRef.detach();
+    this.offset.unsubscribe();
   }
 }

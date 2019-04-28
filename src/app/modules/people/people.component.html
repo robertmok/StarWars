@@ -17,6 +17,9 @@
     </cdk-virtual-scroll-viewport>
   </div>
   <mat-card style="float: left; width: 875px; height: 580px;">
+    <div class="loading-indicator" *ngIf="detailsLoading === true">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
     <mat-card-header>
       <mat-card-title>{{ person.name }} Details</mat-card-title>
     </mat-card-header>
@@ -31,7 +34,11 @@
       </p>
       <div>
         <ul *ngFor="let specie of person.species">
-          <li> {{ specie.name }}</li>
+          <li>
+            <button mat-button color="primary" (click)="specieInfo(specie.url)">
+              {{ specie.name }}
+            </button>
+          </li>
         </ul>
       </div>
       <p>

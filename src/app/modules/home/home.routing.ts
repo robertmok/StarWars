@@ -15,7 +15,15 @@ const routes: Routes = [
         component: PeopleComponent
       },
       {
+        path: 'people/:id',
+        component: PeopleComponent
+      },
+      {
         path: 'species',
+        component: SpeciesComponent
+      },
+      {
+        path: 'species/:id',
         component: SpeciesComponent
       },
       {
