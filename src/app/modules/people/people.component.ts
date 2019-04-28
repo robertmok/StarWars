@@ -7,6 +7,7 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+declare var pdfMake: any;
 
 @Component({
   selector: 'app-people',
@@ -173,6 +174,18 @@ export class PeopleComponent implements OnInit, OnDestroy {
     if (url.split('/').length > 5) {
       this.router.navigate(['/home/species', url.split('/')[5]]);
     }
+  }
+
+  download() {
+    console.log('download');
+    const docDefinition = {
+      content: [
+        'First paragraph',
+        'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
+      ]
+    };
+    pdfMake.createPdf(docDefinition).open();
+    // pdfMake.createPdf(docDefinition).download();
   }
 
 
