@@ -76,7 +76,11 @@
       </p>
       <div>
         <ul *ngFor="let film of planet.films">
-          <li> {{ film.title }}</li>
+          <li>
+            <button mat-button color="primary" (click)="filmInfo(film.url)">
+              {{ film.title }}
+            </button>
+          </li>
         </ul>
       </div>
     </mat-card-content>

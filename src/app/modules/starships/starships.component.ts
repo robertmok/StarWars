@@ -8,38 +8,39 @@ import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-species',
-  templateUrl: './species.component.html',
-  styleUrls: ['./species.component.css']
+  selector: 'app-starships',
+  templateUrl: './starships.component.html',
+  styleUrls: ['./starships.component.css']
 })
-export class SpeciesComponent implements OnInit, OnDestroy {
+export class StarshipsComponent implements OnInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
   theEnd = false;
   offset = new BehaviorSubject(null);
 
-  species = [];
-  specie = {
+  starships = [];
+  starship = {
     "name": "",
-    "classification": "",
-    "designation": "",
-    "average_height": "",
-    "average_lifespan": "",
-    "eye_colors": "",
-    "hair_colors": "",
-    "skin_colors": "",
-    "language": "",
-    "homeworld": {
-      "name": ""
-    },
-    "people": [],
+    "model": "",
+    "starship_class": "",
+    "manufacturer": "",
+    "cost_in_credits": "",
+    "length": "",
+    "crew": "",
+    "passengers": "",
+    "max_atmosphering_speed": "",
+    "hyperdrive_rating": "",
+    "MGLT": "",
+    "cargo_capacity": "",
+    "consumables": "",
     "films": [],
+    "pilots": [],
     "created": "",
     "edited": "",
     "url": ""
   };
-  nextPage = 'https://swapi.co/api/species';
+  nextPage = 'https://swapi.co/api/starships';
   loading = false;
   detailsLoading = false;
 
@@ -54,8 +55,8 @@ export class SpeciesComponent implements OnInit, OnDestroy {
       const id = params.id;
       if (id != null) {
         // Load the right article
-        console.log('Detected Specie ID: ' + id);
-        this.getDetails('https://swapi.co/api/species/' + id + '/');
+        console.log('Detected Starship ID: ' + id);
+        this.getDetails('https://swapi.co/api/starships/' + id + '/');
       } else {
         console.log('No route param');
       }
@@ -76,7 +77,7 @@ export class SpeciesComponent implements OnInit, OnDestroy {
       switchMap(query => {
         console.log(query.trim());
         if (query !== '') {
-          return this.swapiService.searchSpecie(query.trim());
+          return this.swapiService.searchStarship(query.trim());
         } else {
           return of('default');
         }
@@ -90,15 +91,15 @@ export class SpeciesComponent implements OnInit, OnDestroy {
         } else {
           this.theEnd = false;
         }
-        this.species = response.results;
-        console.log(this.species);
+        this.starships = response.results;
+        console.log(this.starships);
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
         }
         this.loading = false;
       } else {
-        this.species = [];
-        this.nextPage = 'https://swapi.co/api/species';
+        this.starships = [];
+        this.nextPage = 'https://swapi.co/api/starships';
         this.theEnd = false;
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
@@ -111,10 +112,10 @@ export class SpeciesComponent implements OnInit, OnDestroy {
   getDetails(url) {
     console.log('Get details of: ' + url);
     this.detailsLoading = true;
-    this.swapiService.getSpecie(url)
+    this.swapiService.getStarship(url)
     .subscribe((response) => {
       console.log(response);
-      this.specie = response;
+      this.starship = response;
       this.detailsLoading = false;
       if (!this.cdRef['destroyed']) {
         this.cdRef.detectChanges();
@@ -125,7 +126,7 @@ export class SpeciesComponent implements OnInit, OnDestroy {
   getBatch() {
     console.log('getting page: ' + this.nextPage);
     this.loading = true;
-    this.swapiService.getSpecies(this.nextPage)
+    this.swapiService.getStarships(this.nextPage)
       .subscribe((response) => {
         console.log(response);
         this.nextPage = response.next;
@@ -134,8 +135,8 @@ export class SpeciesComponent implements OnInit, OnDestroy {
         } else {
           this.theEnd = false;
         }
-        this.species = [...this.species, ...response.results];
-        console.log(this.species);
+        this.starships = [...this.starships, ...response.results];
+        console.log(this.starships);
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
         }
@@ -175,6 +176,7 @@ export class SpeciesComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home/films', url.split('/')[5]]);
     }
   }
+
 
 
   ngOnDestroy() {

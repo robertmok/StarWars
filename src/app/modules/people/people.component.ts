@@ -184,6 +184,27 @@ export class PeopleComponent implements OnInit, OnDestroy {
     }
   }
 
+  starshipInfo(url) {
+    console.log('Lookup Starship Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/starships', url.split('/')[5]]);
+    }
+  }
+
+  vehicleInfo(url) {
+    console.log('Lookup Vehicle Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/vehicles', url.split('/')[5]]);
+    }
+  }
+
+  filmInfo(url) {
+    console.log('Lookup Film Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/films', url.split('/')[5]]);
+    }
+  }
+
   download() {
     console.log('download');
 
@@ -205,6 +226,14 @@ export class PeopleComponent implements OnInit, OnDestroy {
     }
 
     const docDefinition = {
+      info: {
+        title: 'Star Wars - ' + this.person.name + ' Details',
+        author: 'https://robertmok.github.io/StarWars/',
+        subject: 'Details of ' + this.person.name + ' in Star Wars',
+        keywords: 'Star Wars',
+      },
+      pageMargins: [40, 80, 40, 60],
+      header: { text: 'Star Wars', alignment: 'center', fontSize: 30, margin: [0, 30, 0, 0]},
       footer: function(currentPage, pageCount) { return [
           { columns: [
               { text: 'https://robertmok.github.io/StarWars/', margin: [30, 0, 0, 0]},

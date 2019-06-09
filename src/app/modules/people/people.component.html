@@ -59,11 +59,11 @@
       </p>
       <p>
         <span class="bold">Height: </span>
-        {{ person.height }}cm 
+        {{ person.height }} cm 
       </p>
       <p>
         <span class="bold">Weight: </span>
-        {{ person.mass }}kg 
+        {{ person.mass }} kg
       </p>
       <p>
         <span class="bold">Eye Color: </span>
@@ -83,7 +83,11 @@
       </p>
       <div>
         <ul *ngFor="let ship of person.starships">
-          <li> {{ ship.name }}</li>
+          <li>
+            <button mat-button color="primary" (click)="starshipInfo(ship.url)">
+              {{ ship.name }}
+            </button>
+          </li>
         </ul>
       </div>
       <p>
@@ -92,7 +96,11 @@
       </p>
       <div>
         <ul *ngFor="let vehicle of person.vehicles">
-          <li> {{ vehicle.name }}</li>
+          <li>
+            <button mat-button color="primary" (click)="vehicleInfo(vehicle.url)">
+              {{ vehicle.name }}
+            </button>
+          </li>
         </ul>
       </div>
       <p>
@@ -101,7 +109,11 @@
       </p>
       <div>
         <ul *ngFor="let film of person.films">
-          <li> {{ film.title }}</li>
+          <li>
+            <button mat-button color="primary" (click)="filmInfo(film.url)">
+              {{ film.title }}
+            </button>
+          </li>
         </ul>
       </div>
     </mat-card-content>

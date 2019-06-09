@@ -1,0 +1,96 @@
+<div id="maincontent">
+  <form class="example-form" [formGroup]="searchForm">
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="search" placeholder="Search a Vehicle by Name or Model ...">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+  <div style="float: left;">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
+      <div *cdkVirtualFor="let v of vehicles; let i = index; trackBy: trackByIdx" class="example-item">
+        <h3>
+          {{ i + 1 }}. 
+          <button mat-button  color="primary" (click)="getDetails(v.url)">
+            <span style="font-size: 1.17em;" class="bold"> {{  v.name || 'Loading...' }} </span>
+          </button>
+        </h3>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <mat-card style="float: left; width: 859px; height: 580px;">
+    <div class="loading-indicator" *ngIf="detailsLoading === true">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <mat-card-header>
+      <mat-card-title>{{ vehicle.name }} Vehicle</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="height: 560px; overflow: auto;">
+      <p>
+        <span class="bold">Model: </span> 
+        {{ vehicle.model }}
+      </p>
+      <p>
+        <span class="bold">Vehicle Class: </span> 
+        {{ vehicle.vehicle_class }}
+      </p>
+      <p>
+        <span class="bold">Manufacturer: </span> 
+        {{ vehicle.manufacturer }}
+      </p>
+      <p>
+        <span class="bold">Cost in Credits : </span> 
+        {{ vehicle.cost_in_credits }} galactic credits
+      </p>
+      <p>
+        <span class="bold">Length: </span> 
+        {{ vehicle.length }} m
+      </p>
+      <p>
+        <span class="bold">Personnel Required to Operate Vehicle: </span> 
+        {{ vehicle.crew }}
+      </p>
+      <p>
+        <span class="bold">Passengers Capacity: </span> 
+        {{ vehicle.passengers }}
+      </p>
+      <p>
+        <span class="bold">Maximum Speed in Atmosphere: </span> 
+        {{ vehicle.max_atmosphering_speed }}
+      </p>
+      <p>
+        <span class="bold">Cargo Capacity: </span> 
+        {{ vehicle.cargo_capacity }} kg
+      </p>
+      <p>
+        <span class="bold">Maximum Length of Time Without having to Resupply: </span> 
+        {{ vehicle.consumables }}
+      </p>
+      <p>
+        <span class="bold">People who Piloted this Vehicle: </span>
+        <span *ngIf="vehicle.pilots.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let person of vehicle.pilots">
+          <li>
+            <button mat-button color="primary" (click)="personInfo(person.url)">
+              {{ person.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Films Appeared In: </span>
+        <span *ngIf="vehicle.films.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let film of vehicle.films">
+          <li>
+            <button mat-button color="primary" (click)="filmInfo(film.url)">
+              {{ film.title }}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

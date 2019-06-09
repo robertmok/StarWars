@@ -8,38 +8,35 @@ import { switchMap, debounceTime, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-species',
-  templateUrl: './species.component.html',
-  styleUrls: ['./species.component.css']
+  selector: 'app-films',
+  templateUrl: './films.component.html',
+  styleUrls: ['./films.component.css']
 })
-export class SpeciesComponent implements OnInit, OnDestroy {
+export class FilmsComponent implements OnInit, OnDestroy {
   @ViewChild(CdkVirtualScrollViewport)
   viewport: CdkVirtualScrollViewport;
 
   theEnd = false;
   offset = new BehaviorSubject(null);
 
-  species = [];
-  specie = {
-    "name": "",
-    "classification": "",
-    "designation": "",
-    "average_height": "",
-    "average_lifespan": "",
-    "eye_colors": "",
-    "hair_colors": "",
-    "skin_colors": "",
-    "language": "",
-    "homeworld": {
-      "name": ""
-    },
-    "people": [],
-    "films": [],
+  films = [];
+  film = {
+    "title": "",
+    "episode_id": "",
+    "opening_crawl": "",
+    "director": "",
+    "producer": "",
+    "release_date": "",
+    "species": [],
+    "starships": [],
+    "vehicles": [],
+    "characters": [],
+    "planets": [],
     "created": "",
     "edited": "",
     "url": ""
   };
-  nextPage = 'https://swapi.co/api/species';
+  nextPage = 'https://swapi.co/api/films';
   loading = false;
   detailsLoading = false;
 
@@ -54,8 +51,8 @@ export class SpeciesComponent implements OnInit, OnDestroy {
       const id = params.id;
       if (id != null) {
         // Load the right article
-        console.log('Detected Specie ID: ' + id);
-        this.getDetails('https://swapi.co/api/species/' + id + '/');
+        console.log('Detected Film ID: ' + id);
+        this.getDetails('https://swapi.co/api/films/' + id + '/');
       } else {
         console.log('No route param');
       }
@@ -76,7 +73,7 @@ export class SpeciesComponent implements OnInit, OnDestroy {
       switchMap(query => {
         console.log(query.trim());
         if (query !== '') {
-          return this.swapiService.searchSpecie(query.trim());
+          return this.swapiService.searchFilm(query.trim());
         } else {
           return of('default');
         }
@@ -90,15 +87,15 @@ export class SpeciesComponent implements OnInit, OnDestroy {
         } else {
           this.theEnd = false;
         }
-        this.species = response.results;
-        console.log(this.species);
+        this.films = response.results;
+        console.log(this.films);
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
         }
         this.loading = false;
       } else {
-        this.species = [];
-        this.nextPage = 'https://swapi.co/api/species';
+        this.films = [];
+        this.nextPage = 'https://swapi.co/api/films';
         this.theEnd = false;
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
@@ -111,10 +108,10 @@ export class SpeciesComponent implements OnInit, OnDestroy {
   getDetails(url) {
     console.log('Get details of: ' + url);
     this.detailsLoading = true;
-    this.swapiService.getSpecie(url)
+    this.swapiService.getFilm(url)
     .subscribe((response) => {
       console.log(response);
-      this.specie = response;
+      this.film = response;
       this.detailsLoading = false;
       if (!this.cdRef['destroyed']) {
         this.cdRef.detectChanges();
@@ -125,7 +122,7 @@ export class SpeciesComponent implements OnInit, OnDestroy {
   getBatch() {
     console.log('getting page: ' + this.nextPage);
     this.loading = true;
-    this.swapiService.getSpecies(this.nextPage)
+    this.swapiService.getFilms(this.nextPage)
       .subscribe((response) => {
         console.log(response);
         this.nextPage = response.next;
@@ -134,8 +131,8 @@ export class SpeciesComponent implements OnInit, OnDestroy {
         } else {
           this.theEnd = false;
         }
-        this.species = [...this.species, ...response.results];
-        console.log(this.species);
+        this.films = [...this.films, ...response.results];
+        console.log(this.films);
         if (!this.cdRef['destroyed']) {
           this.cdRef.detectChanges();
         }
@@ -169,12 +166,34 @@ export class SpeciesComponent implements OnInit, OnDestroy {
     }
   }
 
-  filmInfo(url) {
-    console.log('Lookup Film Info: ' + url);
+  planetInfo(url) {
+    console.log('Lookup Planet Info: ' + url);
     if (url.split('/').length > 5) {
-      this.router.navigate(['/home/films', url.split('/')[5]]);
+      this.router.navigate(['/home/planets', url.split('/')[5]]);
     }
   }
+
+  specieInfo(url) {
+    console.log('Lookup Specie Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/species', url.split('/')[5]]);
+    }
+  }
+  
+  starshipInfo(url) {
+    console.log('Lookup Starship Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/starships', url.split('/')[5]]);
+    }
+  }
+
+  vehicleInfo(url) {
+    console.log('Lookup Vehicle Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/vehicles', url.split('/')[5]]);
+    }
+  }
+
 
 
   ngOnDestroy() {
@@ -182,3 +201,4 @@ export class SpeciesComponent implements OnInit, OnDestroy {
     this.offset.unsubscribe();
   }
 }
+

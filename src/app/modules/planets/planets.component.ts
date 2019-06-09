@@ -166,7 +166,12 @@ export class PlanetsComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  filmInfo(url) {
+    console.log('Lookup Film Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/films', url.split('/')[5]]);
+    }
+  }
 
 
   ngOnDestroy() {

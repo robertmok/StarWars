@@ -5,6 +5,9 @@ import { PeopleComponent } from '../people/people.component';
 import { InfoComponent } from '../info/info.component';
 import { SpeciesComponent } from '../species/species.component';
 import { PlanetsComponent } from '../planets/planets.component';
+import { StarshipsComponent } from '../starships/starships.component';
+import { VehiclesComponent } from '../vehicles/vehicles.component';
+import { FilmsComponent } from '../films/films.component';
 
 const routes: Routes = [
   {
@@ -34,6 +37,30 @@ const routes: Routes = [
       {
         path: 'planets/:id',
         component: PlanetsComponent
+      },
+      {
+        path: 'starships',
+        component: StarshipsComponent
+      },
+      {
+        path: 'starships/:id',
+        component: StarshipsComponent
+      },
+      {
+        path: 'vehicles',
+        component: VehiclesComponent
+      },
+      {
+        path: 'vehicles/:id',
+        component: VehiclesComponent
+      },
+      {
+        path: 'films',
+        component: FilmsComponent
+      },
+      {
+        path: 'films/:id',
+        component: FilmsComponent
       },
       {
         path: '',

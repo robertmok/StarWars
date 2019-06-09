@@ -1,0 +1,115 @@
+<div id="maincontent">
+  <form class="example-form" [formGroup]="searchForm">
+    <mat-form-field class="example-full-width">
+        <input matInput formControlName="search" placeholder="Search a Film ...">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+  <div style="float: left;">
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
+      <div *cdkVirtualFor="let f of films; let i = index; trackBy: trackByIdx" class="example-item">
+        <h3>
+          {{ i + 1 }}. 
+          <button mat-button  color="primary" (click)="getDetails(f.url)">
+            <span style="font-size: 1.17em;" class="bold"> {{  f.title || 'Loading...' }} </span>
+          </button>
+        </h3>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
+  <mat-card style="float: left; width: 859px; height: 580px;">
+    <div class="loading-indicator" *ngIf="detailsLoading === true">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <mat-card-header>
+      <mat-card-title>{{ film.title }} Film</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="height: 560px; overflow: auto;">
+      <p>
+        <span class="bold">Episode Number: </span> 
+        {{ film.episode_id }}
+      </p>
+      <p class="bold">Opening Crawl: </p>
+      <p>
+        {{ film.opening_crawl }}
+      </p>
+      <p>
+        <span class="bold">Director: </span> 
+        {{ film.director }}
+      </p>
+      <p>
+        <span class="bold">Producer: </span> 
+        {{ film.producer }}
+      </p>
+      <p>
+        <span class="bold">Release Date: </span> 
+        {{ film.release_date }}
+      </p>
+      <p>
+        <span class="bold">Featured Characters: </span>
+        <span *ngIf="film.characters.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let person of film.characters">
+          <li>
+            <button mat-button color="primary" (click)="personInfo(person.url)">
+              {{ person.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Featured Species: </span>
+        <span *ngIf="film.species.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let specie of film.species">
+          <li>
+            <button mat-button color="primary" (click)="specieInfo(specie.url)">
+              {{ specie.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Featured Planets: </span>
+        <span *ngIf="film.planets.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let planet of film.planets">
+          <li>
+            <button mat-button color="primary" (click)="planetInfo(planet.url)">
+              {{ planet.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Featured Starships: </span>
+        <span *ngIf="film.starships.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let starship of film.starships">
+          <li>
+            <button mat-button color="primary" (click)="starshipInfo(starship.url)">
+              {{ starship.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>
+        <span class="bold">Featured Vehicles: </span>
+        <span *ngIf="film.vehicles.length === 0">None</span> 
+      </p>
+      <div>
+        <ul *ngFor="let vehicle of film.vehicles">
+          <li>
+            <button mat-button color="primary" (click)="vehicleInfo(vehicle.url)">
+              {{ vehicle.name }}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
