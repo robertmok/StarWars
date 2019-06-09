@@ -34,7 +34,8 @@ export class PeopleComponent implements OnInit, OnDestroy {
     "birth_year": "",
     "gender": "",
     "homeworld": {
-      "name": ""
+      "name": "",
+      "url": ""
     },
     "films": [],
     "species": [],
@@ -173,6 +174,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
     console.log('Lookup Specie Info: ' + url);
     if (url.split('/').length > 5) {
       this.router.navigate(['/home/species', url.split('/')[5]]);
+    }
+  }
+
+  homeworldInfo(url) {
+    console.log('Lookup Home World Info: ' + url);
+    if (url.split('/').length > 5) {
+      this.router.navigate(['/home/planets', url.split('/')[5]]);
     }
   }
 

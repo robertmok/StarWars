@@ -53,7 +53,9 @@
       </p>
       <p>
         <span class="bold">Home World: </span>
-        {{ person.homeworld.name }}
+        <button mat-button color="primary" (click)="homeworldInfo(person.homeworld.url)">
+          {{ person.homeworld.name }}
+        </button>
       </p>
       <p>
         <span class="bold">Height: </span>
