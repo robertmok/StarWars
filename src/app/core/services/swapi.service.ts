@@ -200,6 +200,62 @@ export class SwapiService {
     );
   }
 
+  getPlanets(url: string): Observable<any> {
+    return this.httpC.get<any>(url)
+      .pipe(
+        catchError(this.handleError('getPlanets', [])
+      )
+    );
+  }
+
+  getPlanet(url: string): Observable<any> {
+    return this.httpC.get<any>(url).pipe(
+      mergeMap((planet: any) => {
+        if (planet.residents.length > 0) {
+          return forkJoin(
+            planet.residents.map((person: any) => {
+              return this.httpC.get(person).pipe(
+                map(res => res)
+              );
+            })
+          ).pipe(
+            map((data: any[]) => {
+              planet.residents = data;
+              return planet;
+            })
+          );
+        } else {
+          return of(planet);
+        }
+      }),
+      mergeMap((planet: any) => {
+        if (planet.films.length > 0) {
+          return forkJoin(
+            planet.films.map((film: any) => {
+              return this.httpC.get(film).pipe(
+                map(res => res)
+              );
+            })
+          ).pipe(
+            map((data: any[]) => {
+              planet.films = data;
+              return planet;
+            })
+          );
+        } else {
+          return of(planet);
+        }
+      })
+    );
+  }
+
+  searchPlanet(query: string): Observable<any> {
+    return this.httpC.get<any>('https://swapi.co/api/planets/?search=' + query)
+      .pipe(
+        catchError(this.handleError('searchPlanet', [])
+      )
+    );
+  }
 
 
   // submit(object: string): Observable<string> {

@@ -21,7 +21,7 @@ import { LayoutModule } from '@angular/cdk/layout';
   declarations: [
     AppComponent,
     LandingComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

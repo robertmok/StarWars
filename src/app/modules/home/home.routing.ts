@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { PeopleComponent } from '../people/people.component';
 import { InfoComponent } from '../info/info.component';
 import { SpeciesComponent } from '../species/species.component';
+import { PlanetsComponent } from '../planets/planets.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,14 @@ const routes: Routes = [
       {
         path: 'species/:id',
         component: SpeciesComponent
+      },
+      {
+        path: 'planets',
+        component: PlanetsComponent
+      },
+      {
+        path: 'planets/:id',
+        component: PlanetsComponent
       },
       {
         path: '',
