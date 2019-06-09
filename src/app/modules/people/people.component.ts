@@ -178,11 +178,115 @@ export class PeopleComponent implements OnInit, OnDestroy {
 
   download() {
     console.log('download');
+
+    let personSpecies = [];
+    for (let obj of this.person.species) {
+      personSpecies.push(obj.name);
+    }
+    let personStarships = [];
+    for (let obj of this.person.starships) {
+      personStarships.push(obj.name);
+    }
+    let personVehicles = [];
+    for (let obj of this.person.vehicles) {
+      personVehicles.push(obj.name);
+    }
+    let personFilms = [];
+    for (let obj of this.person.films) {
+      personFilms.push(obj.title);
+    }
+
     const docDefinition = {
+      footer: function(currentPage, pageCount) { return [
+          { columns: [
+              { text: 'https://robertmok.github.io/StarWars/', margin: [30, 0, 0, 0]},
+              { text: currentPage.toString() + ' of ' + pageCount, alignment: 'right', margin: [0, 0, 30, 0] }
+            ]
+          }
+        ]
+      },
       content: [
-        'First paragraph',
-        'Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines'
-      ]
+        {text: this.person.name + ' Details', style: 'header'},
+        {
+          style: 'tableExample',
+          table: {
+            widths: [200, '*'],
+            body: [
+              [
+                {
+                  text: [
+                    {text: 'Birth Year:\n', style: 'tableHeader'},
+                    'BBY = Before the Battle of Yavin\n',
+                    'ABY = After the Battle of Yavin'
+                  ]
+                },
+                this.person.birth_year
+              ],
+              [
+                {text: 'Species Belonged To:', style: 'tableHeader'},
+                {
+                  ul: personSpecies
+                }
+              ],
+              [
+                {text: 'Gender:', style: 'tableHeader'},
+                this.person.gender
+              ],
+              [
+                {text: 'Home World:', style: 'tableHeader'},
+                this.person.homeworld.name
+              ],
+              [
+                {text: 'Height:', style: 'tableHeader'},
+                this.person.height + ' cm'
+              ],
+              [
+                {text: 'Weight:', style: 'tableHeader'},
+                this.person.mass + ' kg'
+              ],
+              [
+                {text: 'Eye Color:', style: 'tableHeader'},
+                this.person.eye_color
+              ],
+              [
+                {text: 'Hair Color:', style: 'tableHeader'},
+                this.person.hair_color
+              ],
+              [
+                {text: 'Starships Piloted:', style: 'tableHeader'},
+                {
+                  ul: personStarships
+                }
+              ],
+              [
+                {text: 'Vehicles Driven:', style: 'tableHeader'},
+                {
+                  ul: personVehicles
+                }
+              ],
+              [
+                {text: 'Films Starred In:', style: 'tableHeader'},
+                {
+                  ul: personFilms
+                }
+              ]
+            ]
+          }
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+          bold: true
+        }
+      }
     };
     pdfMake.createPdf(docDefinition).open();
     // pdfMake.createPdf(docDefinition).download();
