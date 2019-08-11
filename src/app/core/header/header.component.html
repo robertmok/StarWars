@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar style="background-color: #673ab7;">
+    <mat-toolbar style="background-color: black;">
       <img src="https://cdn.iconscout.com/icon/free/png-256/starwars-225970.png" style="width: 100px;" alt="Star Wars">
     </mat-toolbar>
     <mat-nav-list>
@@ -33,7 +33,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content style="background-color: darkslategray;">
     <mat-toolbar color="primary">
       <button
         type="button"

@@ -25,10 +25,15 @@
 }
 
 .mat-nav-list a.active {
-  background: #673ab7;
+  background-color: darkslategray;
   color: white;
 }
 
 .example-icon {
   padding: 0 5px;
+}
+
+.mat-toolbar.mat-primary {
+  background: black;
+  color: #fff;
 }

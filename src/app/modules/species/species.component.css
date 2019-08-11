@@ -27,6 +27,11 @@
 
 #maincontent {
   padding: 10px 15px;
+  background-color: darkslategray;
+}
+
+input {
+  color: white;
 }
 
 /* Absolute Center Spinner */

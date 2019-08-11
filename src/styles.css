@@ -9,3 +9,35 @@ body {
 html, body {
   height: 100%;
 }
+
+.mat-form-field-label {
+  color: yellow !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: yellow !important;
+}
+
+.mat-form-field-empty.mat-form-field-label {
+  color: yellow !important;
+}
+
+.mat-form-field-underline {
+  background-color: white !important;
+}
+
+.mat-form-field-ripple {
+  background-color: white !important;
+}
+
+.mat-input-element {
+  caret-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    background-color: none !important;
+    color: white !important;
+}

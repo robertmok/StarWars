@@ -1,20 +1,16 @@
-<form [formGroup]="landingFormGroup">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Star Wars Portal</mat-card-title>
-      <mat-card-subtitle>An immersive experience.</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-        <h4>Hello there, what is your name?</h4>
-        <mat-form-field class="input-full-width">
-          <input matInput placeholder="Please enter your name" formControlName="name" required>
-        </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <h4>You will be transported to the Star Wars universe by the portal. Proceed when you are ready.</h4>
-      <button mat-raised-button color="primary" (click)="proceed()">Proceed</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+<div class="video-background">
+  <div class="video-foreground">
+    <iframe src="https://www.youtube.com/embed/W0LHTWG-UmQ?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=W0LHTWG-UmQ" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+<div id="vidtop-content">
+  <div class="vid-info">
+    <form [formGroup]="landingFormGroup">
+      <mat-form-field class="input-custom">
+        <input matInput placeholder="Hello, what is your name?" formControlName="name" autocomplete="off" required>
+      </mat-form-field>
+      <h4>You will be transported to the Star Wars universe by the portal. <br> Proceed when you are ready.</h4>
+      <button mat-raised-button class="custom-button" (click)="proceed()">Proceed</button>
+    </form>
+  </div>
+</div>

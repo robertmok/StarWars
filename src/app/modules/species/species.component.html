@@ -2,17 +2,22 @@
   <form class="example-form" [formGroup]="searchForm">
     <mat-form-field class="example-full-width">
         <input matInput formControlName="search" placeholder="Search a Specie ...">
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-icon matSuffix style="color: white;">search</mat-icon>
     </mat-form-field>
   </form>
-  <div style="float: left;">
+  <div style="float: left; background-color: black; color: white;">
     <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" (scrolledIndexChange)="nextBatch($event)">
       <div *cdkVirtualFor="let s of species; let i = index; trackBy: trackByIdx" class="example-item">
         <h3>
           {{ i + 1 }}. 
-          <button mat-button  color="primary" (click)="getDetails(s.url)">
+          <button mat-button  color="primary" style="color: yellow;" (click)="getDetails(s.url)">
             <span style="font-size: 1.17em;" class="bold"> {{  s.name || 'Loading...' }} </span>
           </button>
+        </h3>
+      </div>
+      <div *ngIf="species.length === 0" style="text-align: center;">
+        <h3>
+          No results found.
         </h3>
       </div>
     </cdk-virtual-scroll-viewport>
