@@ -41,3 +41,7 @@ input:-webkit-autofill:active  {
     background-color: none !important;
     color: white !important;
 }
+
+.mat-dialog-container {
+  background-color: black;
+}

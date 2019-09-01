@@ -34,7 +34,10 @@
         <span class="bold">Episode Number: </span> 
         {{ film.episode_id }}
       </p>
-      <p class="bold">Opening Crawl: </p>
+      <div>
+        <span class="bold">Opening Crawl: </span>
+        <button mat-button color="primary" (click)="movieView(film.episode_id, film.title, film.opening_crawl)">Movie View</button>
+      </div>
       <p>
         {{ film.opening_crawl }}
       </p>

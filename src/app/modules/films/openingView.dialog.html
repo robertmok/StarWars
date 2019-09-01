@@ -1,0 +1,15 @@
+<div class="openingViewContainer">
+    <div class="closeOpeningView">
+        <button mat-button style="color: white;" mat-dialog-close>Close</button>
+    </div>
+    <div class="fade"></div>
+    <div class="star-wars">
+        <div class="crawl">
+            <div class="title">
+                <p> Episode {{ data.episode }} </p>
+                <h1> {{ data.title }} </h1>
+            </div>
+            <div [innerHTML]="data.text"></div>
+        </div>
+    </div>
+</div>

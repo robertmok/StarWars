@@ -1,11 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, Inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
 import { SwapiService } from '../../core/services/swapi.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { switchMap, debounceTime, catchError } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { MatExpansionPanelDescription } from '@angular/material';
 
 @Component({
   selector: 'app-films',
@@ -43,7 +45,7 @@ export class FilmsComponent implements OnInit, OnDestroy {
   search: FormControl;
   searchForm: FormGroup;
   constructor(private route: ActivatedRoute, private swapiService: SwapiService, private cdRef: ChangeDetectorRef,
-              private formBuilder: FormBuilder, private router: Router) {
+              private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -194,7 +196,26 @@ export class FilmsComponent implements OnInit, OnDestroy {
     }
   }
 
-
+  movieView(episode, title, openingText) {
+    if (openingText) {
+      // format opening text
+      const temp = openingText.split('\r\n\r\n');
+      let formatted = '';
+      for (let i = 0; i < temp.length; i++) {
+        formatted += '<p>' + temp[i] + '</p>';
+      }
+      const dialogRef = this.dialog.open(OpeningViewComponent, {
+        width: '100%',
+        maxWidth: '100%',
+        height: '100%',
+        data: {
+          episode: episode,
+          title: title,
+          text: formatted
+        }
+      });
+    }
+  }
 
   ngOnDestroy() {
     this.cdRef.detach();
@@ -202,3 +223,14 @@ export class FilmsComponent implements OnInit, OnDestroy {
   }
 }
 
+@Component({
+  selector: 'app-opening-view',
+  templateUrl: 'openingView.dialog.html',
+  styleUrls: ['./films.component.css']
+})
+export class OpeningViewComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<OpeningViewComponent>,
+    @Inject (MAT_DIALOG_DATA) public data: any) {}
+}
